@@ -1,0 +1,6 @@
+
+app/node_modules/
+app/frontend/dist/
+app/backend/data/store.json
+app/backend/.env
+agent-entretien-ia/
