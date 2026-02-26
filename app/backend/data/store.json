@@ -1,0 +1,13 @@
+{
+  "usersByEmail": {
+    "persist_ee1173d7@example.com": {
+      "userId": "persist_ee1173d7@example.com",
+      "username": "persistuser",
+      "email": "persist_ee1173d7@example.com",
+      "passwordHash": "f5d9caec493860a4cbfd2f3ecb6fd991:7b63e2e3e07173abf0c8617f21f857d34fc4f906b39226af6eb599fdb53c1cd5e9d42328f566ae3572950a930a182a80723450b41bf16c34cbd93b0e80d958f9",
+      "createdAt": "2026-02-25T22:45:26.414Z"
+    }
+  },
+  "paymentStore": {},
+  "userSessions": {}
+}
