@@ -353,6 +353,14 @@ app.get("/health", (_req, res) => {
   });
 });
 
+app.get("/", (_req, res) => {
+  res.json({
+    ok: true,
+    service: "agent-entretien-backend",
+    message: "API en ligne. Utilise /health pour le statut."
+  });
+});
+
 app.post("/auth/signup/request-code", async (req, res) => {
   const email = String(req.body?.email || "").trim().toLowerCase();
   if (!email || !email.includes("@")) return res.status(400).json({ error: "Email invalide" });
