@@ -41,15 +41,16 @@ function isAllowedVercelOrigin(origin) {
   return /^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(origin);
 }
 
-app.use(cors({
-  origin(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (configuredOrigins.includes(origin)) return callback(null, true);
-    if (isAllowedDevOrigin(origin)) return callback(null, true);
-    if (allowVercelAppOrigins && isAllowedVercelOrigin(origin)) return callback(null, true);
-    return callback(new Error(`CORS blocked for origin: ${origin}`));
-  }
-}));
+// app.use(cors({
+//   origin(origin, callback) {
+//     if (!origin) return callback(null, true);
+//     if (configuredOrigins.includes(origin)) return callback(null, true);
+//     if (isAllowedDevOrigin(origin)) return callback(null, true);
+//     if (allowVercelAppOrigins && isAllowedVercelOrigin(origin)) return callback(null, true);
+//     return callback(new Error(`CORS blocked for origin: ${origin}`));
+//   }
+// }));
+app.use(cors());
 app.use(express.json());
 
 const upload = multer({ storage: multer.memoryStorage() });
