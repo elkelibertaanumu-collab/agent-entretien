@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8787").replace(/\/+$/, "");
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 function authHeaders(token) {
   return token ? { Authorization: `Bearer ${token}` } : {};
