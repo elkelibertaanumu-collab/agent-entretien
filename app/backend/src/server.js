@@ -10,6 +10,7 @@ import { getStore, getStorageMode } from "./db.js";
 const app = express();
 const port = Number(process.env.PORT || 8787);
 const frontendOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:5173";
+const allowVercelAppOrigins = String(process.env.ALLOW_VERCEL_APP_ORIGINS || "false") === "true";
 const sttModel = process.env.STT_MODEL || "whisper-1";
 const llmModel = process.env.LLM_MODEL || "gpt-4o-mini";
 const otpTtlMinutes = Number(process.env.AUTH_CODE_TTL_MINUTES || 10);
@@ -36,11 +37,16 @@ function isAllowedDevOrigin(origin) {
   return /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
 }
 
+function isAllowedVercelOrigin(origin) {
+  return /^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(origin);
+}
+
 app.use(cors({
   origin(origin, callback) {
     if (!origin) return callback(null, true);
     if (configuredOrigins.includes(origin)) return callback(null, true);
     if (isAllowedDevOrigin(origin)) return callback(null, true);
+    if (allowVercelAppOrigins && isAllowedVercelOrigin(origin)) return callback(null, true);
     return callback(new Error(`CORS blocked for origin: ${origin}`));
   }
 }));
@@ -350,14 +356,6 @@ app.get("/health", (_req, res) => {
     service: "agent-entretien-backend",
     storage: getStorageMode(),
     date: new Date().toISOString()
-  });
-});
-
-app.get("/", (_req, res) => {
-  res.json({
-    ok: true,
-    service: "agent-entretien-backend",
-    message: "API en ligne. Utilise /health pour le statut."
   });
 });
 
